@@ -30,9 +30,6 @@ contract Staking {
     uint256 public s_lastUpdateTime;
 
     modifier updateReward(address _account) {
-        // how much reward per token?
-        // last timestamp 
-        // between noon and 1, user earned X tokens
         s_rewardPerTokenStored = rewardPerToken();
         s_lastUpdateTime = block.timestamp;
         s_rewards[_account] = earned(_account);
@@ -74,7 +71,7 @@ contract Staking {
     // do we allow any tokens, or just a specific token?
     //      chainlink would be needed to convert prices between tokens
     // just ETH for us
-    function stake(uint256 _amount) external updateReward(msg.sender) moreThanZero(_amount) {
+    function stake(uint256 _amount) public updateReward(msg.sender) moreThanZero(_amount) {
         // keep track of how much user has staked
         // keep track of total token supply
         // transfer tokens to this contract
